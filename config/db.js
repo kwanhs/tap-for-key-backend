@@ -5,6 +5,12 @@ const DB_TYPE = process.env['DB_TYPE'] === undefined ?
   'mysql' :
   process.env['DB_TYPE'].toLowerCase()
 
+const {
+  DB_USERNAME,
+  DB_PASSWORD,
+  DB_DATABASE,
+} = process.env
+
 switch (DB_TYPE) {
   case 'sqlite':
     var sequelize = new Sequelize({
@@ -22,7 +28,7 @@ switch (DB_TYPE) {
 
   case 'mysql':
   default:
-    var sequelize = new Sequelize('tapforkey', 'tapforkey', 'T@p4key2021', {
+    var sequelize = new Sequelize(DB_DATABASE, DB_USERNAME, DB_PASSWORD, {
         host: process.env['DB_PATH'],
         port: process.env['DB_PORT'],
         dialect: 'mysql',
