@@ -4,6 +4,8 @@ build/
 
 *.exe
 *.node
-.env
 *.cmd
+
 keys.db
+.env
+channel.js
