@@ -11,3 +11,4 @@ This is a node-js enabled server for handling API requests from frontend of Tap 
 - Daily operation: `node index`
 - Disable checking for connection to board: `node index --disable-check` (useful for debugging / developing without a physical cell-controlling board connected)
 - Open all cells for maintenance: `node index --open-all`
+- (Re-)Config by copying `.env.example` to `.env` and `channel.js.example` to `channel.js` for configuration.
