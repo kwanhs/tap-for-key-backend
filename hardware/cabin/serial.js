@@ -1,5 +1,6 @@
 const SerialPort = require('serialport');
-const InterByteTimeout = require('@serialport/parser-inter-byte-timeout')
+const InterByteTimeout = require('@serialport/parser-inter-byte-timeout');
+const cabin = require('../../config/cabin');
 
 
 function concatCommand(arr) {
@@ -27,6 +28,33 @@ class Serial {
             xany:       false
         
         }, callback);
+
+        this.board.on('close', (err) => {
+            if(err.disconnected === true) {
+                console.log('Serial port disconnected unexpectedly. For trial of reconnecting ...')
+                
+                const reconnectTimer = setInterval(() => {
+                    this.board = new SerialPort(comPort, {
+                        baudRate:   baudRate,
+                        dataBits:   8,
+                        parity:     'none',
+                        stopBits:   1,
+                        rtscts:     false,
+                        xon:        false,
+                        xoff:       false,
+                        xany:       false
+                    }, (err) => {
+                        if (err) {
+                            console.log('Failed... Retry in 5 seconds.')
+                            return
+                        }
+
+                        clearInterval(reconnectTimer)
+                        console.log('Sueccessfully reconnected.')
+                    });
+                }, 5000)
+            }
+        })
         
         return this;
     }

@@ -20,10 +20,11 @@ const chalk = require('chalk');
 var app = new koa();
 
 function initializeApp() {
-  if (!sequelize.ready || !cabin.ready) return;
+  if (!sequelize.ready || !cabin.ready || app.isListening) return;
 
   app.listen(server.port, () => {
     console.log(`API server listening on port ${server.port}!`);
+    app.isListening = true
   });
 }
 
