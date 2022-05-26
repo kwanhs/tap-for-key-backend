@@ -5,6 +5,7 @@ build/
 *.exe
 *.node
 *.cmd
+*.bat
 
 keys.db
 .env
